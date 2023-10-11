@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">WorkFuel</string>
+    <string name="text_hello">Добро пожаловать</string>
+    <string name="text_login">Войти</string>
+    <string name="text_login_title">Войдите в аккаунт</string>
+    <string name="no_account">Еще нет аккаунта?</string>
+    <string name="create">Создать</string>
+    <string name="nickname">Имя пользователя</string>
+    <string name="password">Пароль</string>
+    <string name="password_repeat">Повторите пароль</string>
+    <string name="create_account">Создать aккаунт</string>
+    <string name="text_registration">Зарегистрироваться</string>
+    <string name="already_have_an_account">Уже есть аккаунт?</string>
+    <string name="text_email">Почта</string>
+
+</resources>
