@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/constraint"
     android:background="@color/background_color"
     tools:context=".RegistrationActivity">
 
@@ -21,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="137dp"
             android:layout_marginStart="45dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="5dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -52,12 +53,13 @@
                 android:layout_marginEnd="40dp"
                 android:background="@drawable/input_background"
                 android:drawableStart="@drawable/person_selected_drawable"
-                android:drawablePadding="13dp"
+                android:drawablePadding="12dp"
                 android:ems="20"
                 android:hint="@string/nickname"
                 android:inputType="text"
                 android:paddingStart="13dp"
                 android:paddingEnd="13dp"
+                android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textStyle="bold" />
 
@@ -73,9 +75,10 @@
                 android:layout_marginEnd="40dp"
                 android:background="@drawable/input_background"
                 android:drawableStart="@drawable/email_selected_drawable"
-                android:drawablePadding="13dp"
+                android:drawablePadding="12dp"
                 android:ems="20"
                 android:hint="@string/text_email"
+                android:textColor="@color/white"
                 android:inputType="textEmailAddress"
                 android:paddingStart="13dp"
                 android:paddingEnd="13dp"
@@ -94,8 +97,9 @@
                 android:layout_marginEnd="40dp"
                 android:background="@drawable/input_background"
                 android:drawableStart="@drawable/password_selected_drawable"
-                android:drawablePadding="13dp"
+                android:drawablePadding="12dp"
                 android:ems="20"
+                android:textColor="@color/white"
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:paddingStart="13dp"
@@ -115,8 +119,9 @@
                 android:layout_marginEnd="40dp"
                 android:background="@drawable/input_background"
                 android:drawableStart="@drawable/password_selected_drawable"
-                android:drawablePadding="13dp"
+                android:drawablePadding="12dp"
                 android:ems="20"
+                android:textColor="@color/white"
                 android:hint="@string/password_repeat"
                 android:inputType="textPassword"
                 android:paddingStart="13dp"
@@ -129,7 +134,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="25dp"
             android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatButton
@@ -161,7 +166,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
-                android:layout_marginEnd="57dp"
+                android:layout_marginEnd="52dp"
                 android:fontFamily="@font/muller_bold"
                 android:gravity="center"
                 android:text="@string/already_have_an_account"
@@ -169,24 +174,25 @@
                 android:textSize="16sp"
                 android:textStyle="normal" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/backLoginButton"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/textViewLogin"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textAllCaps="true"
                 android:layout_alignParentStart="true"
+                android:layout_marginStart="154dp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="146dp"
-                android:layout_marginTop="4dp"
-                android:background="@color/non_background"
+                android:layout_marginTop="19dp"
                 android:fontFamily="@font/muller_bold"
                 android:gravity="center"
                 android:text="@string/text_login"
                 android:textColor="@color/button_color"
-                android:textSize="13sp"
+                android:textSize="14sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
         </RelativeLayout>
 
@@ -203,9 +209,9 @@
         app:layout_constraintVertical_bias="0.0">
 
         <ImageView
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_marginStart="37dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="11dp"
             android:layout_marginBottom="0dp"
             android:src="@drawable/logo" />

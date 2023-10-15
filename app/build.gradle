@@ -1,15 +1,16 @@
 plugins {
     id 'com.android.application'
+    id("com.google.gms.google-services")
 }
 
 android {
     namespace 'com.example.workfuel'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.workfuel"
         minSdk 26
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -37,8 +38,11 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'com.gauravk.bubblenavigation:bubblenavigation:1.0.7'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-core:20.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0-alpha3'
+    implementation 'com.google.firebase:firebase-auth:20.0.0'
+    implementation 'com.google.firebase:firebase-database:20.0.0'
+    implementation platform('com.google.firebase:firebase-bom:32.3.1')
 }
-repositories {
-    google()
-    jcenter()
-}
+

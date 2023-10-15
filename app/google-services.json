@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "186202005958",
+    "project_id": "workfuel-5d79f",
+    "storage_bucket": "workfuel-5d79f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186202005958:android:4c7c2a72a8244d93f212c7",
+        "android_client_info": {
+          "package_name": "com.example.workfuel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKcEfyoImW4Ixh-pJj5Q3b2p7xHFE8NWM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
