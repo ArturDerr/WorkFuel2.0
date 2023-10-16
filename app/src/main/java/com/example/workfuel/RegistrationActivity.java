@@ -54,7 +54,7 @@ public class RegistrationActivity extends AppCompatActivity {
         // авторизируем бд
         auth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
-        users = db.getReference("Users");
+        users = db.getReference("User");
 
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
