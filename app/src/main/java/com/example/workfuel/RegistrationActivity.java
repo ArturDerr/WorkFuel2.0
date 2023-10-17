@@ -15,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.workfuel.objects.User;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,7 +30,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private Button regButton, backLoginButton;
     private TextView textViewLogin;
-    private Intent intentMain, intentReg;
+    private Intent intentMain, intentReg, intentBack;
     private Animation animationScale;
     private EditText name, email, password, passwordRepeat;
     private ConstraintLayout constraint;
@@ -79,25 +80,25 @@ public class RegistrationActivity extends AppCompatActivity {
         passwordRepeat = findViewById(R.id.editTextPasswordRepeat);
 
         if (TextUtils.isEmpty(name.getText().toString())) {
-            Snackbar.make(constraint, "Вы не ввели имя!", Snackbar.LENGTH_SHORT).show();
-            System.exit(0);
+            Toast.makeText(RegistrationActivity.this, "Вы не ввели имя!", Toast.LENGTH_SHORT).show();
+            return;
 
         }
         if (TextUtils.isEmpty(email.getText().toString())) {
-            Snackbar.make(constraint, "Вы не ввели почту!", Snackbar.LENGTH_SHORT).show();
-            System.exit(0);
+            Toast.makeText(RegistrationActivity.this, "Вы не ввели почту!", Toast.LENGTH_SHORT).show();
+            return;
 
         }
         if (password.getText().toString().length() < 7) {
-            Snackbar.make(constraint, "Вы не ввели пароль!", Snackbar.LENGTH_SHORT).show();
-            System.exit(0);
+            Toast.makeText(RegistrationActivity.this, "Длина пароля должна быть не менее 7 цифр", Toast.LENGTH_SHORT).show();
+            return;
 
         }
-        if (passwordRepeat.getText().toString().equals(password.getText().toString())) {
-            Snackbar.make(constraint, "Пароли не совпадают!", Snackbar.LENGTH_SHORT).show();
-            System.exit(0);
+        //if (password.getText().toString().equals(!TextUtils.isEmpty(passwordRepeat.getText().toString())) {
+            //Snackbar.make(constraint, "Пароли не совпадают!", Snackbar.LENGTH_SHORT).show();
+            //return;
 
-        }
+        //}
         // рег
         auth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -109,7 +110,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         user.setEmail(email.getText().toString());
                         user.setName(name.getText().toString());
                         user.setPassword(password.getText().toString());
-
+                        intentMainActivity();
                         //Идентификация пользователи
                         users.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                 .setValue(user)
@@ -117,12 +118,14 @@ public class RegistrationActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         intentMainActivity();
+                                        Toast.makeText(RegistrationActivity.this, "Аккаунт успешно зарегистрирован!", Toast.LENGTH_SHORT).show();
                                         //Snackbar.make(constraint, "Аккаунт успешно зарегистрирован!", Snackbar.LENGTH_SHORT).show();
 
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(RegistrationActivity.this, "Упс! Что-то пошло не так..." + e.getMessage(), Toast.LENGTH_SHORT).show();
                                         //Snackbar.make(constraint, "Упс! Что-то пошло не так..." + e.getMessage(), Snackbar.LENGTH_SHORT).show();
                                     }
                                 });
@@ -135,10 +138,12 @@ public class RegistrationActivity extends AppCompatActivity {
         animationScale = AnimationUtils.loadAnimation(this, R.anim.animation_button_scale);
     }
     private void intentMainActivity() {
-        intentMain = new Intent(this, MenuActivity.class);
+        intentMain = new Intent(this, LoginActivity.class);
         startActivity(intentMain);
     }
     private void intentBackActivity() {
+        intentBack = new Intent(this, LoginActivity.class);
+        startActivity(intentBack);
         finish();
     }
 

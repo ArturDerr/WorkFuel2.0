@@ -15,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -75,12 +76,12 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.editTextPassword);
 
         if (TextUtils.isEmpty(email.getText().toString())) {
-            Snackbar.make(constraint, "Вы не ввели почту!", Snackbar.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Вы не ввели почту!", Toast.LENGTH_SHORT).show();
             System.exit(0);
 
         }
         if (password.getText().toString().length() < 7) {
-            Snackbar.make(constraint, "Вы не ввели пароль!", Snackbar.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Вы не ввели пароль!", Toast.LENGTH_SHORT).show();
             System.exit(0);
 
         }
@@ -90,11 +91,13 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         intentMainActivity();
+                        Toast.makeText(LoginActivity.this, "Вы успешно вошли в аккаунт!", Toast.LENGTH_SHORT).show();
                         //Snackbar.make(constraint, "Вы успешно вошли в аккаунт!", Snackbar.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(LoginActivity.this, "Упс! Что-то пошло не так..." + e.getMessage(), Toast.LENGTH_SHORT).show();
                         //Snackbar.make(constraint, "Упс! Что-то пошло не так..." + e.getMessage(), Snackbar.LENGTH_SHORT).show();
                     }
                 });
