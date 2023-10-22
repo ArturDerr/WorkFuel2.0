@@ -7,7 +7,17 @@
     android:background="@color/background_color"
     tools:context=".MenuActivity">
 
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,9 +29,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:ss_backgroundBottomColor="#ffffff"
+            app:ss_backgroundBottomColor="#C60000"
             app:ss_circleColor="#ff6f00"
-            app:ss_countBackgroundColor="#ff6f00"
+            app:ss_countBackgroundColor="#FFFFFF"
             app:ss_countTextColor="#ffffff"
             app:ss_defaultIconColor="#6200EE"
             app:ss_iconTextColor="#6200EE"
