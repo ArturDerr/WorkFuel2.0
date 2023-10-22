@@ -80,25 +80,47 @@ public class RegistrationActivity extends AppCompatActivity {
         passwordRepeat = findViewById(R.id.editTextPasswordRepeat);
 
         if (TextUtils.isEmpty(name.getText().toString())) {
-            Toast.makeText(RegistrationActivity.this, "Вы не ввели имя!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(RegistrationActivity.this, "Вы не ввели имя!", Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.snackLayout2), "Упс! Вы не ввели имя!", Snackbar.LENGTH_SHORT).show();
             return;
 
         }
         if (TextUtils.isEmpty(email.getText().toString())) {
-            Toast.makeText(RegistrationActivity.this, "Вы не ввели почту!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(RegistrationActivity.this, "Упс! Вы не ввели почту!", Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.snackLayout2), "Упс! Вы не ввели почту!", Snackbar.LENGTH_SHORT).show();
+            return;
+
+        }
+        if (TextUtils.isEmpty(password.getText().toString())) {
+            //Toast.makeText(RegistrationActivity.this, "Вы не ввели пароль!", Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.snackLayout2), "Упс! Вы не ввели пароль!", Snackbar.LENGTH_SHORT).show();
+            return;
+
+        }
+        if (TextUtils.isEmpty(passwordRepeat.getText().toString())) {
+            //Toast.makeText(RegistrationActivity.this, "Повторите пароль!", Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.snackLayout2), "Повторите пароль!", Snackbar.LENGTH_SHORT).show();
             return;
 
         }
         if (password.getText().toString().length() < 7) {
-            Toast.makeText(RegistrationActivity.this, "Длина пароля должна быть не менее 7 цифр", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(RegistrationActivity.this, "Длина пароля должна быть не менее 7 цифр!", Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.snackLayout2), "Длина пароля должна быть не менее 7 цифр", Snackbar.LENGTH_SHORT).show();
             return;
 
         }
-        //if (password.getText().toString().equals(!TextUtils.isEmpty(passwordRepeat.getText().toString())) {
-            //Snackbar.make(constraint, "Пароли не совпадают!", Snackbar.LENGTH_SHORT).show();
-            //return;
+        if (password.getText().toString().equals(passwordRepeat.getText().toString())) {
+            //Toast.makeText(RegistrationActivity.this, "Пароли не совпадают!", Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.snackLayout2), "Упс! Пароли не совпадают!", Snackbar.LENGTH_SHORT).show();
+            return;
 
-        //}
+        }
+        if (TextUtils.isEmpty(email.getText().toString()) && TextUtils.isEmpty(name.getText().toString()) && TextUtils.isEmpty(password.getText().toString()) && TextUtils.isEmpty(passwordRepeat.getText().toString())) {
+            //Toast.makeText(RegistrationActivity.this, "Заполните все поля!", Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.snackLayout2), "Заполните все поля!", Snackbar.LENGTH_SHORT).show();
+            return;
+
+        }
         // рег
         auth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -118,15 +140,15 @@ public class RegistrationActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         intentMainActivity();
-                                        Toast.makeText(RegistrationActivity.this, "Аккаунт успешно зарегистрирован!", Toast.LENGTH_SHORT).show();
-                                        //Snackbar.make(constraint, "Аккаунт успешно зарегистрирован!", Snackbar.LENGTH_SHORT).show();
+                                        //Toast.makeText(RegistrationActivity.this, "Аккаунт успешно зарегистрирован!", Toast.LENGTH_SHORT).show();
+                                        Snackbar.make(findViewById(R.id.snackLayout2), "Аккаунт успешно зарегистрирован!", Snackbar.LENGTH_SHORT).show();
 
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(RegistrationActivity.this, "Упс! Что-то пошло не так..." + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                        //Snackbar.make(constraint, "Упс! Что-то пошло не так..." + e.getMessage(), Snackbar.LENGTH_SHORT).show();
+                                        //Toast.makeText(RegistrationActivity.this, "Упс! Что-то пошло не так..." + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        Snackbar.make(findViewById(R.id.snackLayout2), "Упс! Что-то пошло не так..." + e.getMessage(), Snackbar.LENGTH_SHORT).show();
                                     }
                                 });
 
@@ -136,6 +158,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
     private void animation() {
         animationScale = AnimationUtils.loadAnimation(this, R.anim.animation_button_scale);
+        regButton.startAnimation(animationScale);
     }
     private void intentMainActivity() {
         intentMain = new Intent(this, LoginActivity.class);

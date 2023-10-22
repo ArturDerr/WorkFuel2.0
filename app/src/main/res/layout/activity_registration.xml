@@ -59,7 +59,7 @@
                 android:inputType="text"
                 android:paddingStart="13dp"
                 android:paddingEnd="13dp"
-                android:textColor="@color/white"
+                android:textColor="@color/button_color"
                 android:textColorHint="@color/white"
                 android:textStyle="bold" />
 
@@ -78,7 +78,7 @@
                 android:drawablePadding="12dp"
                 android:ems="20"
                 android:hint="@string/text_email"
-                android:textColor="@color/white"
+                android:textColor="@color/button_color"
                 android:inputType="textEmailAddress"
                 android:paddingStart="13dp"
                 android:paddingEnd="13dp"
@@ -99,7 +99,7 @@
                 android:drawableStart="@drawable/password_selected_drawable"
                 android:drawablePadding="12dp"
                 android:ems="20"
-                android:textColor="@color/white"
+                android:textColor="@color/button_color"
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:paddingStart="13dp"
@@ -121,7 +121,7 @@
                 android:drawableStart="@drawable/password_selected_drawable"
                 android:drawablePadding="12dp"
                 android:ems="20"
-                android:textColor="@color/white"
+                android:textColor="@color/button_color"
                 android:hint="@string/password_repeat"
                 android:inputType="textPassword"
                 android:paddingStart="13dp"
@@ -157,6 +157,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/snackLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
@@ -180,9 +181,9 @@
                 android:layout_height="wrap_content"
                 android:textAllCaps="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="154dp"
+                android:layout_marginStart="153dp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="19dp"
+                android:layout_marginTop="52px"
                 android:fontFamily="@font/muller_bold"
                 android:gravity="center"
                 android:text="@string/text_login"
@@ -199,6 +200,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
@@ -208,13 +210,38 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <ImageView
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_marginStart="37dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="0dp"
-            android:src="@drawable/logo" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="230dp"
+                android:layout_marginBottom="0dp"
+                android:src="@drawable/logo" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="274dp"
+                android:layout_height="227dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="234dp"
+                android:layout_marginTop="-49dp"
+                android:layout_marginEnd="-97dp"
+                android:layout_marginBottom="0dp"
+                android:rotation="30"
+                android:src="@drawable/preview3" />
+        </RelativeLayout>
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

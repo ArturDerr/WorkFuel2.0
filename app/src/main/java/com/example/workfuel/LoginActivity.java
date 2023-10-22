@@ -33,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
     private Animation animationScale;
     private SharedPreferences sharedPreferences;
     private EditText email, password;
-    private ConstraintLayout constraint;
     private boolean logging;
     FirebaseAuth auth;
     FirebaseDatabase db;
@@ -76,13 +75,27 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.editTextPassword);
 
         if (TextUtils.isEmpty(email.getText().toString())) {
-            Toast.makeText(LoginActivity.this, "Вы не ввели почту!", Toast.LENGTH_SHORT).show();
-            System.exit(0);
+            //Toast.makeText(LoginActivity.this, "Вы не ввели почту!", Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.snackLayout), "Упс! Вы не ввели почту!", Snackbar.LENGTH_SHORT).show();
+            return;
+
+        }
+        if (TextUtils.isEmpty(password.getText().toString())) {
+            //Toast.makeText(LoginActivity.this, "Вы не ввели пароль!", Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.snackLayout), "Упс! Вы не ввели пароль!", Snackbar.LENGTH_SHORT).show();
+            return;
 
         }
         if (password.getText().toString().length() < 7) {
-            Toast.makeText(LoginActivity.this, "Вы не ввели пароль!", Toast.LENGTH_SHORT).show();
-            System.exit(0);
+            //Toast.makeText(LoginActivity.this, "Данный пароль недействителен, т.к его длина менее 7 символов!", Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.snackLayout), "Упс! Введенный вами пароль имеет менее 7 символов!", Snackbar.LENGTH_SHORT).show();
+            return;
+
+        }
+        if (TextUtils.isEmpty(email.getText().toString()) && TextUtils.isEmpty(password.getText().toString())) {
+            //Toast.makeText(LoginActivity.this, "Заполните все поля!", Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.snackLayout), "Заполните все поля!", Snackbar.LENGTH_SHORT).show();
+            return;
 
         }
 
@@ -91,14 +104,14 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         intentMainActivity();
-                        Toast.makeText(LoginActivity.this, "Вы успешно вошли в аккаунт!", Toast.LENGTH_SHORT).show();
-                        //Snackbar.make(constraint, "Вы успешно вошли в аккаунт!", Snackbar.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginActivity.this, "Вы успешно вошли в аккаунт!", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.snackLayout), "Вы успешно вошли в аккаунт!", Snackbar.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(LoginActivity.this, "Упс! Что-то пошло не так..." + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        //Snackbar.make(constraint, "Упс! Что-то пошло не так..." + e.getMessage(), Snackbar.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginActivity.this, "Упс! Что-то пошло не так..." + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.snackLayout), "Упс! Что-то пошло не так..." + e.getMessage(), Snackbar.LENGTH_SHORT).show();
                     }
                 });
 
@@ -106,6 +119,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void animation() {
         animationScale = AnimationUtils.loadAnimation(this, R.anim.animation_button_scale);
+        loginButton.startAnimation(animationScale);
     }
     private void intentMainActivity() {
         intentMain = new Intent(this, MenuActivity.class);
