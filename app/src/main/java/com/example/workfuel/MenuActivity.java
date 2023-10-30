@@ -21,12 +21,12 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         bottomNavigation = findViewById(R.id.bottomNavigation);
-        bottomNavigation.add(new SSCustomBottomNavigation.Model(1, R.drawable.ic_home, "Home"));
-        bottomNavigation.add(new SSCustomBottomNavigation.Model(2, R.drawable.ic_basket, "Basket"));
-        bottomNavigation.add(new SSCustomBottomNavigation.Model(3, R.drawable.ic_settings, "Settings"));
+        bottomNavigation.add(new SSCustomBottomNavigation.Model(1, R.drawable.ic_basket, getResources().getString(R.string.basket)));
+        bottomNavigation.add(new SSCustomBottomNavigation.Model(2, R.drawable.ic_home, getResources().getString(R.string.menu)));
+        bottomNavigation.add(new SSCustomBottomNavigation.Model(3, R.drawable.ic_settings, getResources().getString(R.string.settings)));
 
         //bottomNavigation.setCount(2, "1"); Это кол-во еды в корзине сверху над иконкой
-        bottomNavigation.show(1, true);
+        bottomNavigation.show(2, true);
 
         bottomNavigation.setOnClickMenuListener(new Function1<SSCustomBottomNavigation.Model, Unit>() {
             @Override
