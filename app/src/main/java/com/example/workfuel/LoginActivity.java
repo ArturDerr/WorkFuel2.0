@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private CheckBox checkBox;
     private Button loginButton;
     private TextView textViewCreate;
     private Intent intentMain, intentReg, intentLog;
@@ -38,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private EditText email, password;
     private boolean logging;
+    public static final String APP_PREFERENCES = "preferences";
     FirebaseAuth auth;
     FirebaseDatabase db;
     DatabaseReference users;
@@ -48,17 +51,17 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         loginButton = findViewById(R.id.loginButton);
         textViewCreate = findViewById(R.id.textViewCreate);
+        checkBox = findViewById(R.id.checkBox);
+
+        boolean checked = checkBox.isChecked();
+
+        if (checked) {
+            savePreferences();
+        }
 
         auth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
         users = db.getReference("Users");
-
-        // не фурычит
-        //sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
-        //boolean logging = sharedPreferences.getBoolean("logging", false);
-
-        //if (!logging) {
-        //}
 
         textViewCreate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,9 +117,11 @@ public class LoginActivity extends AppCompatActivity {
                         if (auth.getCurrentUser().isEmailVerified()) {
                             intentMainActivity();
                             //Toast.makeText(LoginActivity.this, "Вы успешно вошли в аккаунт!", Toast.LENGTH_SHORT).show();
-                            snackbarMake("Вы успешно вошли в аккаунт!");
                         } else {
-                            snackbarMake("Вам необходимо подтвердить почту!");
+                            Snackbar.make(findViewById(R.id.snackLayout2), "Вам необходимо подтвердить почту!", Snackbar.LENGTH_SHORT)
+                                    .setBackgroundTint(getResources().getColor(R.color.button_color))
+                                    .setTextColor(Color.WHITE)
+                                    .show();
                             intentVerificationActivity();
 
 
@@ -137,45 +142,58 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.startAnimation(animationScale);
     }
     private void intentMainActivity() {
-        intentMain = new Intent(this, MenuActivity.class);
-        overridePendingTransition(0, 0);
-        startActivity(intentMain);
+        //intentMain = new Intent(this, MenuActivity.class);
+        //startActivity(intentMain);
+        Intent intentMain = new Intent(this, MenuActivity.class);
+        intentMain.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivityForResult(intentMain, 0);
+        overridePendingTransition(0,0);
     }
     private void intentRegActivity() {
-        intentReg = new Intent(this, RegistrationActivity.class);
-        overridePendingTransition(0, 0);
-        startActivity(intentReg);
+        //intentReg = new Intent(this, RegistrationActivity.class);
+        //startActivity(intentReg);
+        Intent intentReg = new Intent(this, RegistrationActivity.class);
+        intentReg.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivityForResult(intentReg, 0);
+        overridePendingTransition(0,0);
     }
     private void intentVerificationActivity() {
         intentMain = new Intent(this, EmailVerificationActivity.class);
-        overridePendingTransition(0, 0);
         startActivity(intentMain);
     }
     private void intentLogActivity() {
         intentLog = new Intent(this, LoginActivity.class);
-        overridePendingTransition(0, 0);
         startActivity(intentLog);
     }
     private void snackbarMake(String textSnack) {
         Snackbar.make(findViewById(R.id.snackLayout), textSnack, Snackbar.LENGTH_SHORT)
-                .setBackgroundTint(Color.WHITE)
-                .setTextColor(Color.BLACK)
+                .setBackgroundTint(getResources().getColor(R.color.button_color))
+                .setTextColor(Color.WHITE)
                 .show();
+    }
+    private void savePreferences() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("logging", true);
+        editor.apply();
+    }
+
+    private void loadPreferences() {
+        sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        boolean logging = sharedPreferences.getBoolean("logging", true);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            intentMainActivity();
+        }  else {
+            intentLogActivity();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //проверка авторизирован ли пользователь
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            intentMainActivity();
-        } else {
-            intentLogActivity();
-        }
-        /*SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("logging", true);
-        editor.apply();*/
+
+        loadPreferences();
+
 
     }
 }

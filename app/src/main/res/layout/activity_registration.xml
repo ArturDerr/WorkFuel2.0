@@ -21,13 +21,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="137dp"
-            android:layout_marginStart="45dp"
-            android:layout_marginBottom="5dp">
+            android:layout_marginStart="41dp"
+            android:layout_marginBottom="0dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="77dp"
                 android:fontFamily="@font/muller_bold"
                 android:text="@string/create_account"
                 android:textColor="@color/white"
@@ -38,7 +38,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="328dp"
             android:layout_marginBottom="0dp">
 
             <EditText
@@ -51,6 +51,7 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="40dp"
+                android:elevation="7dp"
                 android:background="@drawable/input_background"
                 android:drawableStart="@drawable/person_selected_drawable"
                 android:drawablePadding="12dp"
@@ -59,7 +60,7 @@
                 android:inputType="text"
                 android:paddingStart="13dp"
                 android:paddingEnd="13dp"
-                android:textColor="@color/button_color"
+                android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textStyle="bold" />
 
@@ -77,8 +78,9 @@
                 android:drawableStart="@drawable/email_selected_drawable"
                 android:drawablePadding="12dp"
                 android:ems="20"
+                android:elevation="7dp"
                 android:hint="@string/text_email"
-                android:textColor="@color/button_color"
+                android:textColor="@color/white"
                 android:inputType="textEmailAddress"
                 android:paddingStart="13dp"
                 android:paddingEnd="13dp"
@@ -99,8 +101,9 @@
                 android:drawableStart="@drawable/password_selected_drawable"
                 android:drawablePadding="12dp"
                 android:ems="20"
-                android:textColor="@color/button_color"
+                android:textColor="@color/white"
                 android:hint="@string/password"
+                android:elevation="7dp"
                 android:inputType="textPassword"
                 android:paddingStart="13dp"
                 android:paddingEnd="13dp"
@@ -121,7 +124,8 @@
                 android:drawableStart="@drawable/password_selected_drawable"
                 android:drawablePadding="12dp"
                 android:ems="20"
-                android:textColor="@color/button_color"
+                android:elevation="7dp"
+                android:textColor="@color/white"
                 android:hint="@string/password_repeat"
                 android:inputType="textPassword"
                 android:paddingStart="13dp"
@@ -133,16 +137,21 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="0dp"
             android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/regButton"
-                android:layout_width="325dp"
+                android:layout_width="116dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="39dp"
+                android:layout_marginEnd="39dp"
                 android:background="@drawable/button_background"
-                android:elevation="100dp"
+                android:elevation="125dp"
+                android:layout_marginTop="0dp"
                 android:fontFamily="@font/muller_bold"
                 android:gravity="center"
                 android:text="@string/text_registration"
@@ -166,7 +175,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="19dp"
                 android:layout_marginEnd="52dp"
                 android:fontFamily="@font/muller_bold"
                 android:gravity="center"
@@ -183,7 +192,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="153dp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="19dp"
+                android:layout_marginTop="21dp"
                 android:fontFamily="@font/muller_bold"
                 android:gravity="center"
                 android:text="@string/text_login"
@@ -210,18 +219,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <!--<ImageView
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginStart="45dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="230dp"
                 android:layout_marginBottom="0dp"
-                android:src="@drawable/logo" />
+                android:src="@drawable/logo" />-->
+
         </RelativeLayout>
 
 
@@ -232,14 +243,12 @@
             <ImageView
                 android:layout_width="274dp"
                 android:layout_height="200dp"
-                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="305dp"
-                android:layout_marginTop="-49dp"
-                android:layout_marginEnd="-97dp"
+                android:layout_marginTop="-14dp"
+                android:layout_marginEnd="-130dp"
                 android:layout_marginBottom="0dp"
-                android:rotation="0"
+                android:rotation="20"
                 android:src="@drawable/preview3" />
         </RelativeLayout>
     </RelativeLayout>

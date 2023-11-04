@@ -19,8 +19,9 @@
     <string name="menu">Меню</string>
     <string name="settings">Настройки</string>
     <string name="verification_header">Подтверждение почты</string>
-    <string name="verification_text">Для подтверждения почты   перейдите по ссылке в       электронном письме</string>
-    <string name="email_app">Перейти в почту</string>
+    <string name="verification_text">Для подтверждения своего email перейдите по ссылке в электронном письме</string>
+    <string name="email_app">Перейти к письму</string>
+    <string name="remember">Запомнить меня</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

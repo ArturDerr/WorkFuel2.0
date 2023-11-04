@@ -38,14 +38,21 @@ public class EmailVerificationActivity extends AppCompatActivity {
         auth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    intentMainActivity();
-                    //Toast.makeText(RegistrationActivity.this, "Аккаунт успешно зарегистрирован!", Toast.LENGTH_SHORT).show();
-                    snackMake("Аккаунт успешно зарегистрирован!");
-
-                } else {
-                    snackMake("Вам необходимо подтвердить почту!");
+                while (true) {
+                    if (task.isSuccessful()) {
+                        intentMainActivity();
+                        //Toast.makeText(RegistrationActivity.this, "Аккаунт успешно зарегистрирован!", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.frame), "Аккаунт успешно зарегистрирован!", Snackbar.LENGTH_SHORT)
+                                .setBackgroundTint(getResources().getColor(R.color.button_color))
+                                .setTextColor(Color.WHITE)
+                                .show();
+                        break;
+                    }
+                    else {
+                        snackMake("Вам необходимо подтвердить почту!");
+                    }
                 }
+
             }
         });
 
@@ -87,9 +94,9 @@ public class EmailVerificationActivity extends AppCompatActivity {
         startActivity(intentMain);
     }
     private void snackMake(String textSnack) {
-        Snackbar.make(findViewById(R.id.snackLayout), textSnack, Snackbar.LENGTH_SHORT)
-                .setBackgroundTint(Color.WHITE)
-                .setTextColor(Color.BLACK)
+        Snackbar.make(findViewById(R.id.snackLayout3), textSnack, Snackbar.LENGTH_SHORT)
+                .setBackgroundTint(getResources().getColor(R.color.button_color))
+                .setTextColor(Color.WHITE)
                 .show();
     }
     private void animationTransitionButton() {

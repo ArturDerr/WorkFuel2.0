@@ -110,7 +110,7 @@ public class RegistrationActivity extends AppCompatActivity {
         }
         if (password.getText().toString().length() < 7) {
             //Toast.makeText(RegistrationActivity.this, "Длина пароля должна быть не менее 7 цифр!", Toast.LENGTH_SHORT).show();
-            snackMake("Длина пароля должна быть не менее 7 цифр");
+            snackMake("Длина пароля должна быть не менее 7 символов");
             return;
 
         }
@@ -144,9 +144,6 @@ public class RegistrationActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         intentVerificationActivity();
-                                        snackMake("Вам необходимо подтвердить почту!");
-                                        // тут либо users, либо все таки auth
-                                        // подтверждение почты
 
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
@@ -183,8 +180,8 @@ public class RegistrationActivity extends AppCompatActivity {
     }
     private void snackMake(String textSnack) {
         Snackbar.make(findViewById(R.id.snackLayout2), textSnack, Snackbar.LENGTH_SHORT)
-                .setBackgroundTint(Color.WHITE)
-                .setTextColor(Color.BLACK)
+                .setBackgroundTint(getResources().getColor(R.color.button_color))
+                .setTextColor(Color.WHITE)
                 .show();
     }
 
