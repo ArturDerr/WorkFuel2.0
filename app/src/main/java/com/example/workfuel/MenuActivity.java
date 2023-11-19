@@ -34,11 +34,11 @@ public class MenuActivity extends AppCompatActivity {
 
                 switch (model.getId()) {
                     case 1:
-                        transaction(new MenuFragment());
+                        transaction(new BasketFragment());
                         break;
 
                     case 2:
-                        transaction(new BasketFragment());
+                        transaction(new MenuFragment());
                         break;
 
                     case 3:

@@ -16,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,10 +34,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
+
+    private ProgressBar progressBar;
     private CheckBox checkBox;
     private Button loginButton;
     private TextView textViewCreate;
-    private Intent intentMain, intentReg, intentLog;
+    private Intent intentMain, intentReg, intentLog, intentVer;
     private Animation animationScale;
     private SharedPreferences sharedPreferences;
     private EditText email, password;
@@ -51,24 +55,28 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         loginButton = findViewById(R.id.loginButton);
         textViewCreate = findViewById(R.id.textViewCreate);
-        checkBox = findViewById(R.id.checkBox);
 
-        boolean checked = checkBox.isChecked();
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
+        //checkBox = findViewById(R.id.checkBox);
 
-        if (checked) {
-            savePreferences();
-        }
+        //boolean checked = checkBox.isChecked();
+
+        //if (checked) {
+        //savePreferences();
+        //}
 
         auth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
-        users = db.getReference("Users");
+        users = db.getReference("User");
 
         textViewCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 textViewCreate.setText(R.string.create_underline);
                 intentRegActivity();
-                finish();
+                progressBar.setVisibility(View.VISIBLE);
+
 
             }
         });
@@ -76,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
                 loginUser();
                 animation();
             }
@@ -109,7 +118,6 @@ public class LoginActivity extends AppCompatActivity {
             return;
 
         }
-
         auth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
@@ -142,28 +150,36 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.startAnimation(animationScale);
     }
     private void intentMainActivity() {
-        //intentMain = new Intent(this, MenuActivity.class);
-        //startActivity(intentMain);
         Intent intentMain = new Intent(this, MenuActivity.class);
         intentMain.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivityForResult(intentMain, 0);
         overridePendingTransition(0,0);
+
+        //intentMain = new Intent(this, MenuActivity.class);
+        //startActivity(intentMain);
+
     }
     private void intentRegActivity() {
-        //intentReg = new Intent(this, RegistrationActivity.class);
-        //startActivity(intentReg);
+
         Intent intentReg = new Intent(this, RegistrationActivity.class);
         intentReg.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivityForResult(intentReg, 0);
         overridePendingTransition(0,0);
+
+        //intentReg = new Intent(this, RegistrationActivity.class);
+        //startActivity(intentReg);
+
     }
     private void intentVerificationActivity() {
-        intentMain = new Intent(this, EmailVerificationActivity.class);
-        startActivity(intentMain);
+            intentVer = new Intent(this, EmailVerificationActivity.class);
+            startActivity(intentVer);
     }
     private void intentLogActivity() {
-        intentLog = new Intent(this, LoginActivity.class);
-        startActivity(intentLog);
+        if(intentVer==null) {
+            intentLog = new Intent(this, LoginActivity.class);
+            startActivity(intentLog);
+        }
+
     }
     private void snackbarMake(String textSnack) {
         Snackbar.make(findViewById(R.id.snackLayout), textSnack, Snackbar.LENGTH_SHORT)
@@ -171,7 +187,7 @@ public class LoginActivity extends AppCompatActivity {
                 .setTextColor(Color.WHITE)
                 .show();
     }
-    private void savePreferences() {
+    /*private void savePreferences() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("logging", true);
         editor.apply();
@@ -181,18 +197,23 @@ public class LoginActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         boolean logging = sharedPreferences.getBoolean("logging", true);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
+        if (user != null && auth.getCurrentUser().isEmailVerified()) {
             intentMainActivity();
-        }  else {
+        } else {
             intentLogActivity();
         }
-    }
+
+    } */
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        loadPreferences();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null && auth.getCurrentUser().isEmailVerified()) {
+            intentMainActivity();
+        } else {
+            intentLogActivity();
+        }
 
 
     }

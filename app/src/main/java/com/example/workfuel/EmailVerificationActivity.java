@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,6 +23,7 @@ import java.io.IOException;
 
 public class EmailVerificationActivity extends AppCompatActivity {
 
+    private ProgressBar progressBar;
     private Button transitionButton;
     private TextView textViewLogin;
     private Intent intentLogin, intentMain, emailIntent;
@@ -35,20 +37,43 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
+        new Thread(new Runnable() {
+            public void run() {
+                if (auth.getCurrentUser().isEmailVerified()) {
+                    progressBar.setVisibility(View.GONE);
+                    intentMainActivity();
+                    //Toast.makeText(RegistrationActivity.this, "Аккаунт успешно зарегистрирован!", Toast.LENGTH_SHORT).show();
+                        /*Snackbar.make(findViewById(R.id.frame), "Аккаунт успешно зарегистрирован!", Snackbar.LENGTH_SHORT)
+                                .setBackgroundTint(getResources().getColor(R.color.button_color))
+                                .setTextColor(Color.WHITE)
+                                .show(); */
+                }
+                else {
+                    progressBar.setVisibility(View.VISIBLE);
+                    //snackMake("Вам необходимо подтвердить почту!");
+                }
+            }
+        }).start();
+
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
         auth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 while (true) {
-                    if (task.isSuccessful()) {
+                    if (auth.getCurrentUser().isEmailVerified()) {
+                        progressBar.setVisibility(View.GONE);
                         intentMainActivity();
                         //Toast.makeText(RegistrationActivity.this, "Аккаунт успешно зарегистрирован!", Toast.LENGTH_SHORT).show();
-                        Snackbar.make(findViewById(R.id.frame), "Аккаунт успешно зарегистрирован!", Snackbar.LENGTH_SHORT)
+                        /*Snackbar.make(findViewById(R.id.frame), "Аккаунт успешно зарегистрирован!", Snackbar.LENGTH_SHORT)
                                 .setBackgroundTint(getResources().getColor(R.color.button_color))
                                 .setTextColor(Color.WHITE)
-                                .show();
+                                .show(); */
                         break;
                     }
                     else {
+                        progressBar.setVisibility(View.VISIBLE);
                         snackMake("Вам необходимо подтвердить почту!");
                     }
                 }
@@ -62,14 +87,19 @@ public class EmailVerificationActivity extends AppCompatActivity {
         transitionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
+
+                animationTransitionButton();
+                emailIntent = Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_EMAIL);
+                emailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(Intent.createChooser(emailIntent, ""));
+                /*try {
                     animationTransitionButton();
                     emailIntent = Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_EMAIL);
                     emailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(Intent.createChooser(emailIntent, ""));
                 } catch (Exception error1) {
                     snackMake("Упс! Что-то пошло не так..." + error1.getMessage());
-                }
+                } */
 
             }
         });
@@ -83,7 +113,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
         });
     }
     private void intentLogActivity() {
-        intentLogin = new Intent(this, LoginActivity.class);
+        //intentLogin = new Intent(this, LoginActivity.class);
         overridePendingTransition(0, 0);
         startActivity(intentLogin);
         finish();

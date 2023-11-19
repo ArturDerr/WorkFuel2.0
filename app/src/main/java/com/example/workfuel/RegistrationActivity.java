@@ -15,6 +15,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistrationActivity extends AppCompatActivity {
 
+    private ProgressBar progressBar;
     private Button regButton, backLoginButton;
     private TextView textViewLogin;
     private Intent intentMain, intentReg, intentBack;
@@ -52,6 +54,8 @@ public class RegistrationActivity extends AppCompatActivity {
         constraint = findViewById(R.id.constraint);
         regButton = findViewById(R.id.regButton);
         textViewLogin = findViewById(R.id.textViewLogin);
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
 
         //sharedPreferences = getSharedPreferences("preferences", Context.MODE_PRIVATE);
         //boolean register = sharedPreferences.getBoolean("register", false);
@@ -65,6 +69,7 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 registrationUser();
+                progressBar.setVisibility(View.VISIBLE);
                 animation();
 
             }
@@ -74,6 +79,7 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 textViewLogin.setText(R.string.login_underline);
+                progressBar.setVisibility(View.VISIBLE);
                 intentBackActivity();
             }
         });
@@ -114,7 +120,7 @@ public class RegistrationActivity extends AppCompatActivity {
             return;
 
         }
-        if (password.getText().toString().equals(passwordRepeat.getText().toString())) {
+        if (password.getText().toString() == passwordRepeat.getText().toString()) {
             //Toast.makeText(RegistrationActivity.this, "Пароли не совпадают!", Toast.LENGTH_SHORT).show();
             snackMake("Упс! Пароли не совпадают!");
             return;
@@ -144,6 +150,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         intentVerificationActivity();
+                                        progressBar.setVisibility(View.VISIBLE);
 
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
