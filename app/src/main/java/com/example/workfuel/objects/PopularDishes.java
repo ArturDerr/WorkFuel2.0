@@ -12,6 +12,9 @@ public class PopularDishes {
         this.rating = rating;
         this.img = img;
     }
+    public PopularDishes() {
+
+    }
 
     public String getName() {
         return name;

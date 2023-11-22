@@ -37,6 +37,37 @@ public class EmailVerificationActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
+        transitionButton = findViewById(R.id.transitionButton);
+        textViewLogin = findViewById(R.id.textViewLogin);
+
+        transitionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                animationTransitionButton();
+                emailIntent = Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_EMAIL);
+                emailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(Intent.createChooser(emailIntent, ""));
+                /*try {
+                    animationTransitionButton();
+                    emailIntent = Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_EMAIL);
+                    emailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(Intent.createChooser(emailIntent, ""));
+                } catch (Exception error1) {
+                    snackMake("Упс! Что-то пошло не так..." + error1.getMessage());
+                } */
+
+            }
+        });
+        textViewLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textViewLogin.setText(R.string.login_underline);
+                intentLogActivity();
+                finish();
+            }
+        });
+
         new Thread(new Runnable() {
             public void run() {
                 if (auth.getCurrentUser().isEmailVerified()) {
@@ -81,36 +112,6 @@ public class EmailVerificationActivity extends AppCompatActivity {
             }
         });
 
-        transitionButton = findViewById(R.id.transitionButton);
-        textViewLogin = findViewById(R.id.textViewLogin);
-
-        transitionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                animationTransitionButton();
-                emailIntent = Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_EMAIL);
-                emailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(Intent.createChooser(emailIntent, ""));
-                /*try {
-                    animationTransitionButton();
-                    emailIntent = Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_EMAIL);
-                    emailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(Intent.createChooser(emailIntent, ""));
-                } catch (Exception error1) {
-                    snackMake("Упс! Что-то пошло не так..." + error1.getMessage());
-                } */
-
-            }
-        });
-        textViewLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                textViewLogin.setText(R.string.login_underline);
-                intentLogActivity();
-                finish();
-            }
-        });
     }
     private void intentLogActivity() {
         //intentLogin = new Intent(this, LoginActivity.class);
@@ -136,11 +137,11 @@ public class EmailVerificationActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        /*FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             intentMainActivity();
         } else {
             intentLogActivity();
-        }
+        } */
     }
 }

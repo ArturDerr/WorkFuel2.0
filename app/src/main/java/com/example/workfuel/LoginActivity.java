@@ -171,14 +171,19 @@ public class LoginActivity extends AppCompatActivity {
 
     }
     private void intentVerificationActivity() {
-            intentVer = new Intent(this, EmailVerificationActivity.class);
-            startActivity(intentVer);
+        Intent intentVer = new Intent(this, EmailVerificationActivity.class);
+        intentReg.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivityForResult(intentVer, 0);
+        overridePendingTransition(0,0);
+
     }
     private void intentLogActivity() {
-        if(intentVer==null) {
-            intentLog = new Intent(this, LoginActivity.class);
-            startActivity(intentLog);
-        }
+        Intent intentLog = new Intent(this, LoginActivity.class);
+        intentReg.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivityForResult(intentLog, 0);
+        overridePendingTransition(0,0);
+
+
 
     }
     private void snackbarMake(String textSnack) {
@@ -187,7 +192,7 @@ public class LoginActivity extends AppCompatActivity {
                 .setTextColor(Color.WHITE)
                 .show();
     }
-    /*private void savePreferences() {
+    /* private void savePreferences() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("logging", true);
         editor.apply();
@@ -208,12 +213,12 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        /*FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null && auth.getCurrentUser().isEmailVerified()) {
             intentMainActivity();
         } else {
             intentLogActivity();
-        }
+        } */
 
 
     }

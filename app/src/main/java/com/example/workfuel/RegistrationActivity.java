@@ -143,23 +143,33 @@ public class RegistrationActivity extends AppCompatActivity {
                         user.setEmail(email.getText().toString());
                         user.setName(name.getText().toString());
                         user.setPassword(password.getText().toString());
-                        //Идентификация пользователи
-                        users.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                .setValue(user)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        intentVerificationActivity();
-                                        progressBar.setVisibility(View.VISIBLE);
-
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        //Toast.makeText(RegistrationActivity.this, "Упс! Что-то пошло не так..." + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                        snackMake("Упс! Что-то пошло не так..." + e.getMessage());
-                                    }
-                                });
+                        FirebaseUser user2 = FirebaseAuth.getInstance().getCurrentUser();
+                        if (user2 != null) {
+                            snackMake("Упс! Такой аккаунт уже существует...");
+                        } else {
+                           //Идентификация пользователя
+                            users.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(user)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            intentVerificationActivity();
+                                            progressBar.setVisibility(View.VISIBLE);
+                                            Intent fff = new Intent(RegistrationActivity.this, EmailVerificationActivity.class);
+                                            startActivity(fff);
+                                            Intent intentVer = new Intent(RegistrationActivity.this, EmailVerificationActivity.class);
+                                            intentVer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                            startActivityForResult(intentVer, 0);
+                                            overridePendingTransition(0,0);
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            //Toast.makeText(RegistrationActivity.this, "Упс! Что-то пошло не так..." + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            snackMake("Упс! Что-то пошло не так..." + e.getMessage());
+                                        }
+                                    });
+                        }
 
 
                     }
@@ -171,19 +181,24 @@ public class RegistrationActivity extends AppCompatActivity {
     }
     private void intentMainActivity() {
         intentMain = new Intent(this, MenuActivity.class);
-        overridePendingTransition(0, 0);
-        startActivity(intentMain);
+        intentMain.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivityForResult(intentMain, 0);
+        overridePendingTransition(0,0);
     }
     private void intentVerificationActivity() {
-        intentMain = new Intent(this, EmailVerificationActivity.class);
-        overridePendingTransition(0, 0);
-        startActivity(intentMain);
+        Intent intentVer = new Intent(this, EmailVerificationActivity.class);
+        intentVer.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivityForResult(intentVer, 0);
+        overridePendingTransition(0,0);
+
     }
     private void intentBackActivity() {
+
         intentBack = new Intent(this, LoginActivity.class);
-        overridePendingTransition(0, 0);
-        startActivity(intentBack);
-        finish();
+        intentBack.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivityForResult(intentBack, 0);
+        overridePendingTransition(0,0);
+
     }
     private void snackMake(String textSnack) {
         Snackbar.make(findViewById(R.id.snackLayout2), textSnack, Snackbar.LENGTH_SHORT)
@@ -195,12 +210,12 @@ public class RegistrationActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        /*FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             intentMainActivity();
         } else {
             intentBackActivity();
-        }
+        } */
     }
 
 }

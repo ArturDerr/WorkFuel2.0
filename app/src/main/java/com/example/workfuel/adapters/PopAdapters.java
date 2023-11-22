@@ -22,6 +22,11 @@ public class PopAdapters extends RecyclerView.Adapter<PopAdapters.ViewHolder> {
     private Context context;
     private List<PopularDishes> popularDishesList;
 
+    public PopAdapters(Context context, List<PopularDishes> popularDishesList) {
+        this.context = context;
+        this.popularDishesList = popularDishesList;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -32,9 +37,8 @@ public class PopAdapters extends RecyclerView.Adapter<PopAdapters.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Glide.with(context).load(popularDishesList.get(position).getImg()).into(holder.img);
         holder.name.setText(popularDishesList.get(position).getName());
-        holder.rating.setText(popularDishesList.get(position).getRating());
         holder.description.setText(popularDishesList.get(position).getDescription());
-
+        holder.rating.setText(popularDishesList.get(position).getRating());
 
     }
 
